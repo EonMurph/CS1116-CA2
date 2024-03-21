@@ -20,24 +20,13 @@ let fpsInterval = 1000 / 30; // the denominator is frames-per-second
 let now;
 let then = Date.now();
 
-let player = {
-  x: 1280 / 2,
-  y: 1024 / 2,
-  height: 64,
-  width: 25,
-  xChange: 10,
-  yChange: 25,
-};
-let y_boundary = 0.2;
-let x_boundary = 0.2;
-
 let moveUp = false;
 let moveDown = false;
 let moveLeft = false;
 let moveRight = false;
 
 // prettier-ignore
-let background = [
+const background = [
   [1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4],
   [2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1],
   [3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2],
@@ -55,11 +44,11 @@ let background = [
   [3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2],
   [4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3]
 ];
-let backgroundImage = new Image();
-let tilesPerRow = 2;
-let num_cols = 20;
-let num_rows = 16;
-let tileSize = 64;
+const backgroundImage = new Image();
+const tilesPerRow = 2;
+const num_cols = 20;
+const num_rows = 16;
+const tileSize = 64;
 
 document.addEventListener("DOMContentLoaded", init, false);
 
@@ -218,7 +207,6 @@ function out_of_bounds(object) {
 function load_assets(assets, callback) {
   let num_assets = assets.length;
   let loaded = function () {
-    console.log("loaded");
     num_assets -= 1;
     if (num_assets === 0) {
       callback();
@@ -227,10 +215,8 @@ function load_assets(assets, callback) {
   for (let asset of assets) {
     let element = asset.var;
     if (element instanceof HTMLImageElement) {
-      console.log("img");
       element.addEventListener("load", loaded, false);
     } else if (element instanceof HTMLAudioElement) {
-      console.log("audio");
       element.addEventListener("canplaythrough", loaded, false);
     }
     element.src = asset.url;
