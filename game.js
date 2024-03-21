@@ -13,8 +13,8 @@ let player = {
   xChange: 10,
   yChange: 25,
 };
-let y_boundary = 0.1;
-let x_boundary = 0.1;
+let y_boundary = 0.2;
+let x_boundary = 0.2;
 
 let moveUp = false;
 let moveDown = false;
@@ -55,8 +55,10 @@ function init() {
   window.addEventListener("keydown", key_down, false);
   window.addEventListener("keyup", key_up, false);
 
-  load_assets([{ var: backgroundImage, url: "images/tester_tilemap.png" }]);
-  draw();
+  load_assets(
+    [{ var: backgroundImage, url: "images/tester_tilemap.png" }],
+    draw
+  );
 }
 
 function draw() {
@@ -176,7 +178,7 @@ function out_of_bounds(object) {
 }
 
 function load_assets(assets, callback) {
-  let num_assets = assets.lenght;
+  let num_assets = assets.length;
   let loaded = function () {
     console.log("loaded");
     num_assets -= 1;
