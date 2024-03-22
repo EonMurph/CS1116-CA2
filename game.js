@@ -1,17 +1,15 @@
-import { Character } from "./characters.js";
-import { draw_background } from "./draw.js";
+import { Player } from "./characters.js";
+import { Enemy } from "./enemies.js";
 
 let enemies = [];
 const enemyImage = new Image();
-const enemy1 = new Character(64, 64, 1000, 200, 5, 5, enemyImage);
-const enemy2 = new Character(64, 64, 15, 800, 8, 8, enemyImage);
-const enemy3 = new Character(64, 64, 900, 200, 2, 2, enemyImage);
+const enemy1 = new Enemy(64, 64, 1000, 200, 5, 5, enemyImage, 10, 10);
+const enemy2 = new Enemy(64, 64, 15, 800, 8, 8, enemyImage, 10, 10);
+const enemy3 = new Enemy(64, 64, 900, 200, 2, 2, enemyImage, 10, 10);
 enemies.push(enemy1, enemy2, enemy3);
 
 const playerImage = new Image();
-const player = new Character(64, 64, 1280 / 2, 1024 / 2, 20, 25, playerImage);
-let y_boundary = 0.2;
-let x_boundary = 0.2;
+const player = new Player(64, 64, 1280 / 2, 1024 / 2, 20, 25, playerImage);
 
 export let canvas;
 export let context;
@@ -107,43 +105,13 @@ function draw() {
   // for (let enemy of enemies) {
   //   context.fillRect(enemy.x, enemy.y, enemy.width, enemy.height);
   // }
-  context.drawImage(playerImage, player.x, player.y, player.width, player.height)
+  context.drawImage(player.image, player.x, player.y, player.width, player.height)
   for (let enemy of enemies) {
-    context.drawImage(enemyImage, enemy.x, enemy.y, enemy.width, enemy.height);
+    context.drawImage(enemy.image, enemy.x, enemy.y, enemy.width, enemy.height);
   }
 
-  if (moveUp) {
-    if (player.y > canvas.height * y_boundary) {
-      player.y -= player.ySpeed;
-    } else {
-      background.unshift(background.pop());
-    }
-  }
-  if (moveDown) {
-    if (player.y + player.height < canvas.height * (1 - y_boundary)) {
-      player.y += player.ySpeed;
-    } else {
-      background.push(background.shift());
-    }
-  }
-  if (moveLeft) {
-    if (player.x > canvas.width * x_boundary) {
-      player.x -= player.xSpeed;
-    } else {
-      for (let i = 0; i < num_rows; i += 1) {
-        background[i].unshift(background[i].pop());
-      }
-    }
-  }
-  if (moveRight) {
-    if (player.x + player.width < canvas.width * (1 - x_boundary)) {
-      player.x += player.xSpeed;
-    } else {
-      for (let i = 0; i < num_rows; i += 1) {
-        background[i].push(background[i].shift());
-      }
-    }
-  }
+  player.move();
+  
   for (let enemy of enemies) {
     let distance = enemy.distance_to_player(player.x, player.y);
     if (Math.abs(distance[0]) > 15) {
@@ -166,31 +134,31 @@ function draw() {
 function key_down(event) {
   let key = event.key;
   if (key === "w") {
-    moveUp = true;
+    player.moveUp = true;
   }
   if (key === "s") {
-    moveDown = true;
+    player.moveDown = true;
   }
   if (key === "a") {
-    moveLeft = true;
+    player.moveLeft = true;
   }
   if (key === "d") {
-    moveRight = true;
+    player.moveRight = true;
   }
 }
 function key_up(event) {
   let key = event.key;
   if (key === "w") {
-    moveUp = false;
+    player.moveUp = false;
   }
   if (key === "s") {
-    moveDown = false;
+    player.moveDown = false;
   }
   if (key === "a") {
-    moveLeft = false;
+    player.moveLeft = false;
   }
   if (key === "d") {
-    moveRight = false;
+    player.moveRight = false;
   }
 }
 
