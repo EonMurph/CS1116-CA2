@@ -13,8 +13,8 @@ const player = new Character(64, 64, 1280 / 2, 1024 / 2, 20, 25, playerImage);
 let y_boundary = 0.2;
 let x_boundary = 0.2;
 
-let canvas;
-let context;
+export let canvas;
+export let context;
 
 let fpsInterval = 1000 / 30; // the denominator is frames-per-second
 let now;
@@ -26,7 +26,7 @@ let moveLeft = false;
 let moveRight = false;
 
 // prettier-ignore
-const background = [
+export const background = [
   [1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4],
   [2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1],
   [3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2],
@@ -46,8 +46,8 @@ const background = [
 ];
 const backgroundImage = new Image();
 const tilesPerRow = 2;
-const num_cols = 20;
-const num_rows = 16;
+const numCols = 20;
+const numRows = 16;
 const tileSize = 64;
 
 document.addEventListener("DOMContentLoaded", init, false);
