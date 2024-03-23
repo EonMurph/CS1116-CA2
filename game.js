@@ -121,13 +121,19 @@ function draw() {
   // for (let enemy of enemies) {
   //   context.fillRect(enemy.x, enemy.y, enemy.width, enemy.height);
   // }
-  context.drawImage(player.image, player.x, player.y, player.width, player.height)
+  context.drawImage(
+    player.image,
+    player.x,
+    player.y,
+    player.width,
+    player.height
+  );
   for (let enemy of enemies) {
     context.drawImage(enemy.image, enemy.x, enemy.y, enemy.width, enemy.height);
   }
 
   player.move();
-  
+
   for (let enemy of enemies) {
     let distance = enemy.distance_to_player(player.x, player.y);
     if (Math.abs(distance[0]) > 15) {
