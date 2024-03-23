@@ -80,8 +80,8 @@ function init() {
   load_assets(
     [
       { var: background.backgroundImage, url: "images/tester_tilemap.png" },
-      { var: enemyImage, url: "images/monsters/transparent/Icon5.png" },
-      { var: playerImage, url: "images/monsters/transparent/Icon6.png" },
+      { var: enemyImage, url: "images/monsters/transparent/Icon2.png" },
+      { var: playerImage, url: "images/monsters/transparent/Icon10.png" },
     ],
     draw
   );
