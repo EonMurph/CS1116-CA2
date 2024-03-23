@@ -127,23 +127,8 @@ function draw() {
   }
 
   player.move();
-
   for (let enemy of enemies) {
-    let distance = enemy.distance_to_player(player.x, player.y);
-    if (Math.abs(distance[0]) > 15) {
-      if (distance[0] < 0) {
-        enemy.x += enemy.xSpeed;
-      } else if (distance[0] > 0) {
-        enemy.x -= enemy.xSpeed;
-      }
-    }
-    if (Math.abs(distance[1]) > 20) {
-      if (distance[1] < 0) {
-        enemy.y += enemy.ySpeed;
-      } else if (distance[1] > 0) {
-        enemy.y -= enemy.ySpeed;
-      }
-    }
+    enemy.move(player.x, player.y);
   }
 }
 
