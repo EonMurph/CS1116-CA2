@@ -1,6 +1,6 @@
 import { createPlayer } from "./js_modules/characters.js";
 import { Enemy } from "./js_modules/enemies.js";
-import { aim } from "./js_modules/shooting.js";
+import { aim, closestEnemy } from "./js_modules/shooting.js";
 import { rotate_sprite } from "./js_modules/misc.js";
 
 let enemies = [];
@@ -119,7 +119,9 @@ function draw() {
     }
   }
 
-  rotate_sprite(player, 0);
+  let nearestEnemy = closestEnemy(player, enemies);
+  let angle = aim(player.x, player.y, nearestEnemy.x, nearestEnemy.y);
+  rotate_sprite(player, angle);
 
   for (let enemy of enemies) {
     let angle = aim(enemy.x, enemy.y, player.x, player.y);
