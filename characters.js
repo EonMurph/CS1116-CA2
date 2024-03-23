@@ -1,46 +1,80 @@
 import { canvas, background } from "./game.js";
 
-export class Player extends Character {
-  constructor(height, width, x, y, xSpeed, ySpeed, image) {
-    super(height, width, x, y, xSpeed, ySpeed, image);
+export function createPlayer(height, width, x, y, xSpeed, ySpeed, image) {
+  const player = { height, width, x, y, xSpeed, ySpeed, image };
+  const y_boundary = 0.2;
+  const x_boundary = 0.2;
+  let moveUp = false;
+  let moveDown = false;
+  let moveLeft = false;
+  let moveRight = false;
 
-    this.y_boundary = 0.2;
-    this.x_boundary = 0.2;
-  }
-  
-  move() {
-    if (this.moveUp) {
-      if (this.y > canvas.height * this.y_boundary) {
-        this.y -= this.ySpeed;
+  player.move = () => {
+    if (moveUp) {
+      if (player.y > canvas.height * y_boundary) {
+        player.y -= player.ySpeed;
       } else {
-        background.unshift(background.pop())
+        background.map.unshift(background.map.pop());
       }
     }
-    if (this.moveDown) {
-      if (this.y + this.height < canvas.height * (1 - this.y_boundary)) {
-        this.y += this.ySpeed;
+    if (moveDown) {
+      if (player.y + player.height < canvas.height * (1 - y_boundary)) {
+        player.y += player.ySpeed;
       } else {
-        background.push(background.shift());
+        background.map.push(background.map.shift());
       }
     }
-    
-    if (this.moveLeft) {
-      if (this.x > canvas.width * this.x_boundary) {
-        this.x -= this.xSpeed;
+
+    if (moveLeft) {
+      if (player.x > canvas.width * x_boundary) {
+        player.x -= player.xSpeed;
       } else {
-        for (let i = 0; i < numRows; i += 1) {
-          background[i].unshift(background[i].pop());
+        for (let i = 0; i < background.numRows; i += 1) {
+          background.map[i].unshift(background.map[i].pop());
         }
       }
     }
-    if (this.moveRight) {
-      if (this.x + this.width < canvas.width * (1- this.x_boundary)) {
-        this.x += this.xSpeed;
+    if (moveRight) {
+      if (player.x + player.width < canvas.width * (1 - x_boundary)) {
+        player.x += player.xSpeed;
       } else {
-        for (let i = 0; i < numRows; i += 1) {
-          background[i].push(background[i].shift());
+        for (let i = 0; i < background.numRows; i += 1) {
+          background.map[i].push(background.map[i].shift());
         }
       }
     }
+  };
+
+  player.keyDown = (key) => {
+    if (key === "w") {
+      moveUp = true;
+    }
+    if (key === "s") {
+      moveDown = true;
+    }
+
+    if (key === "a") {
+      moveLeft = true;
+    }
+    if (key === "d") {
+      moveRight = true;
+    }
   }
+  player.keyUp = (key) => {
+    if (key === "w") {
+      moveUp = false;
+    }
+    if (key === "s") {
+      moveDown = false;
+    }
+
+    if (key === "a") {
+      moveLeft = false;
+    }
+    if (key === "d") {
+      moveRight = false;
+    }
+  }
+
+  return player;
 }

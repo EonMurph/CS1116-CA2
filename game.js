@@ -1,4 +1,4 @@
-import { Player } from "./characters.js";
+import { createPlayer } from "./characters.js";
 import { Enemy } from "./enemies.js";
 
 let enemies = [];
@@ -9,7 +9,8 @@ const enemy3 = new Enemy(64, 64, 900, 200, 2, 2, enemyImage, 10, 10);
 enemies.push(enemy1, enemy2, enemy3);
 
 const playerImage = new Image();
-const player = new Player(64, 64, 1280 / 2, 1024 / 2, 20, 25, playerImage);
+const player = createPlayer(64, 64, 1280 / 2, 1024 / 2, 20, 25, playerImage);
+const playerKeys = ["w", "s", "d", "a"];
 
 export let canvas;
 export let context;
@@ -54,8 +55,8 @@ function init() {
   canvas = document.querySelector("canvas");
   context = canvas.getContext("2d");
 
-  window.addEventListener("keydown", key_down, false);
-  window.addEventListener("keyup", key_up, false);
+  window.addEventListener("keydown", keyDown, false);
+  window.addEventListener("keyup", keyUp, false);
 
   load_assets(
     [
@@ -131,34 +132,16 @@ function draw() {
   }
 }
 
-function key_down(event) {
+function keyDown(event) {
   let key = event.key;
-  if (key === "w") {
-    player.moveUp = true;
-  }
-  if (key === "s") {
-    player.moveDown = true;
-  }
-  if (key === "a") {
-    player.moveLeft = true;
-  }
-  if (key === "d") {
-    player.moveRight = true;
+  if (playerKeys.includes(key)) {
+    player.keyDown(key);
   }
 }
-function key_up(event) {
+function keyUp(event) {
   let key = event.key;
-  if (key === "w") {
-    player.moveUp = false;
-  }
-  if (key === "s") {
-    player.moveDown = false;
-  }
-  if (key === "a") {
-    player.moveLeft = false;
-  }
-  if (key === "d") {
-    player.moveRight = false;
+  if (playerKeys.includes(key)) {
+    player.keyUp(key);
   }
 }
 
