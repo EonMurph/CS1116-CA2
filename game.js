@@ -115,12 +115,6 @@ function draw() {
     }
   }
 
-  // context.fillStyle = "yellow";
-  // context.fillRect(player.x, player.y, player.width, player.height);
-  // context.fillStyle = "red";
-  // for (let enemy of enemies) {
-  //   context.fillRect(enemy.x, enemy.y, enemy.width, enemy.height);
-  // }
   context.drawImage(
     player.image,
     player.x,
