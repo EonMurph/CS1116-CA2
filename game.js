@@ -1,12 +1,16 @@
 import { createPlayer } from "./js_modules/characters.js";
 import { Enemy } from "./js_modules/enemies.js";
+import { aim } from "./js_modules/shooting.js";
+import { rotate_sprite } from "./js_modules/misc.js";
 
 let enemies = [];
 const enemyImage = new Image();
-const enemy1 = new Enemy(64, 64, 1000, 200, 5, 5, enemyImage, 10, 10);
-const enemy2 = new Enemy(64, 64, 15, 800, 8, 8, enemyImage, 10, 10);
-const enemy3 = new Enemy(64, 64, 900, 200, 2, 2, enemyImage, 10, 10);
-enemies.push(enemy1, enemy2, enemy3);
+// Enemy(height, width, x, y, xSpeed, ySpeed, image, fireRate, damage)
+const enemy1 = new Enemy(64, 64, 640, 300, 5, 5, enemyImage, 10, 10);
+const enemy2 = new Enemy(64, 64, 640, 700, 8, 8, enemyImage, 10, 10);
+const enemy3 = new Enemy(64, 64, 850, 512, 2, 2, enemyImage, 10, 10);
+const enemy4 = new Enemy(64, 64, 450, 512, 2, 2, enemyImage, 10, 10);
+enemies.push(enemy1, enemy2, enemy3, enemy4);
 
 const playerImage = new Image();
 const player = createPlayer(64, 64, 1280 / 2, 1024 / 2, 20, 25, playerImage);
@@ -115,21 +119,14 @@ function draw() {
     }
   }
 
-  context.drawImage(
-    player.image,
-    player.x,
-    player.y,
-    player.width,
-    player.height
-  );
+  rotate_sprite(player, 0);
+
   for (let enemy of enemies) {
-    context.drawImage(enemy.image, enemy.x, enemy.y, enemy.width, enemy.height);
+    let angle = aim(enemy.x, enemy.y, player.x, player.y);
+    rotate_sprite(enemy, angle);
   }
 
   player.move();
-  for (let enemy of enemies) {
-    enemy.move(player.x, player.y);
-  }
 }
 
 function keyDown(event) {
