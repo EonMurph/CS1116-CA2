@@ -19,13 +19,15 @@ let fpsInterval = 1000 / 30; // the denominator is frames-per-second
 let now;
 let then = Date.now();
 
-let moveUp = false;
-let moveDown = false;
-let moveLeft = false;
-let moveRight = false;
-
+export const background = {
+  tilesPerRow: 2,
+  numCols: 20,
+  numRows: 16,
+  tileSize: 64,
+  backgroundImage: new Image(),
+};
 // prettier-ignore
-export const background = [
+background.map = [
   [1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4],
   [2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1],
   [3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2],
@@ -43,11 +45,24 @@ export const background = [
   [3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2],
   [4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3]
 ];
-const backgroundImage = new Image();
-const tilesPerRow = 2;
-const numCols = 20;
-const numRows = 16;
-const tileSize = 64;
+// background.map = [
+//   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+//   [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
+//   [1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 1],
+//   [1, 2, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 2, 1],
+//   [1, 2, 3, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 3, 2, 1],
+//   [1, 2, 3, 4, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 4, 3, 2, 1],
+//   [1, 2, 3, 4, 1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 2, 1, 4, 3, 2, 1],
+//   [1, 2, 3, 4, 1, 2, 3, 4, 4, 4, 4, 4, 4, 3, 2, 1, 4, 3, 2, 1],
+//   [1, 2, 3, 4, 1, 2, 3, 4, 4, 4, 4, 4, 4, 3, 2, 1, 4, 3, 2, 1],
+//   [1, 2, 3, 4, 1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 2, 1, 4, 3, 2, 1],
+//   [1, 2, 3, 4, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 4, 3, 2, 1],
+//   [1, 2, 3, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 3, 2, 1],
+//   [1, 2, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 2, 1],
+//   [1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 1],
+//   [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
+//   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+// ]
 
 document.addEventListener("DOMContentLoaded", init, false);
 
@@ -60,7 +75,7 @@ function init() {
 
   load_assets(
     [
-      { var: backgroundImage, url: "images/tester_tilemap.png" },
+      { var: background.backgroundImage, url: "images/tester_tilemap.png" },
       { var: enemyImage, url: "images/monsters/transparent/Icon5.png" },
       { var: playerImage, url: "images/monsters/transparent/Icon6.png" },
     ],
@@ -79,22 +94,22 @@ function draw() {
 
   context.clearRect(0, 0, canvas.width, canvas.height);
 
-  for (let r = 0; r < numRows; r += 1) {
-    for (let c = 0; c < numCols; c += 1) {
-      let tile = background[r][c];
+  for (let r = 0; r < background.numRows; r += 1) {
+    for (let c = 0; c < background.numCols; c += 1) {
+      let tile = background.map[r][c];
       if (tile >= 0) {
-        let tileRow = Math.floor(tile / tilesPerRow);
-        let tileCol = Math.floor(tile % tilesPerRow);
+        let tileRow = Math.floor(tile / background.tilesPerRow);
+        let tileCol = Math.floor(tile % background.tilesPerRow);
         context.drawImage(
-          backgroundImage,
-          tileCol * tileSize,
-          tileRow * tileSize,
-          tileSize,
-          tileSize,
-          c * tileSize,
-          r * tileSize,
-          tileSize,
-          tileSize
+          background.backgroundImage,
+          tileCol * background.tileSize,
+          tileRow * background.tileSize,
+          background.tileSize,
+          background.tileSize,
+          c * background.tileSize,
+          r * background.tileSize,
+          background.tileSize,
+          background.tileSize
         );
       }
     }
