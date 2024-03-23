@@ -6,10 +6,10 @@ import { rotate_sprite } from "./js_modules/misc.js";
 let enemies = [];
 const enemyImage = new Image();
 // Enemy(height, width, x, y, xSpeed, ySpeed, image, fireRate, damage)
-const enemy1 = new Enemy(64, 64, 640, 300, 5, 5, enemyImage, 10, 10);
+const enemy1 = new Enemy(64, 64, 640, 250, 5, 5, enemyImage, 10, 10);
 const enemy2 = new Enemy(64, 64, 640, 700, 8, 8, enemyImage, 10, 10);
-const enemy3 = new Enemy(64, 64, 850, 512, 2, 2, enemyImage, 10, 10);
-const enemy4 = new Enemy(64, 64, 450, 512, 2, 2, enemyImage, 10, 10);
+const enemy3 = new Enemy(64, 64, 900, 512, 2, 2, enemyImage, 10, 10);
+const enemy4 = new Enemy(64, 64, 350, 512, 2, 2, enemyImage, 10, 10);
 enemies.push(enemy1, enemy2, enemy3, enemy4);
 
 const playerImage = new Image();
