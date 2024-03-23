@@ -1,4 +1,4 @@
-import { canvas, background } from "./game.js";
+import { canvas, background } from "../game.js";
 
 export function createPlayer(height, width, x, y, xSpeed, ySpeed, image) {
   const player = { height, width, x, y, xSpeed, ySpeed, image };

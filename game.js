@@ -1,5 +1,5 @@
-import { createPlayer } from "./characters.js";
-import { Enemy } from "./enemies.js";
+import { createPlayer } from "./js_modules/characters.js";
+import { Enemy } from "./js_modules/enemies.js";
 
 let enemies = [];
 const enemyImage = new Image();
