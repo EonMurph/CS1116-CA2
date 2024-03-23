@@ -1,19 +1,4 @@
 import { canvas, background } from "./game.js";
-export class Character {
-  constructor(height, width, x, y, xSpeed, ySpeed, image) {
-    this.height = height;
-    this.width = width;
-    this.x = x;
-    this.y = y;
-    this.xSpeed = xSpeed;
-    this.ySpeed = ySpeed;
-    this.image = image;
-    this.moveUp = false;
-    this.moveDown = false;
-    this.moveLeft = false;
-    this.moveRight = false;
-  }
-}
 
 export class Player extends Character {
   constructor(height, width, x, y, xSpeed, ySpeed, image) {
