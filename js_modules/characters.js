@@ -1,9 +1,9 @@
 import { canvas, background } from "../game.js";
 
 export function createPlayer(height, width, x, y, xSpeed, ySpeed, image) {
-  const player = { height, width, x, y, xSpeed, ySpeed, image };
-  const y_boundary = 0.2;
-  const x_boundary = 0.2;
+  const player = { name: "Player", height, width, x, y, xSpeed, ySpeed, image };
+  const y_boundary = 0.15;
+  const x_boundary = 0.15;
   let moveUp = false;
   let moveDown = false;
   let moveLeft = false;

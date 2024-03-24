@@ -17,7 +17,11 @@ export function rotate_sprite(sprite, angle) {
       sprite.height
     );
   } else {
-    context.fillStyle = "yellow";
+    if (sprite.owner === "Enemy") {
+      context.fillStyle = "red";
+    } else {
+      context.fillStyle = "yellow";
+    }
     context.fillRect(
       (sprite.width / 2) * -1,
       (sprite.height / 2) * -1,

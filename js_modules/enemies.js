@@ -1,5 +1,6 @@
 export class Enemy {
   constructor(height, width, x, y, xSpeed, ySpeed, image, fireRate, damage) {
+    this.name = "Enemy";
     this.height = height;
     this.width = width;
     this.x = x;

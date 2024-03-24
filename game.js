@@ -128,6 +128,7 @@ function draw() {
   for (let enemy of enemies) {
     let angle = aim(enemy.x, enemy.y, player.x, player.y);
     rotate_sprite(enemy, angle);
+    fire(enemy, angle);
   }
   
   player.move();

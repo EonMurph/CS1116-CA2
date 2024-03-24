@@ -33,7 +33,7 @@ export function fire(character, angle) {
     width: 40,
     height: 10,
     angle: angle,
-    owner: character,
+    owner: character.name,
   }
   bullets.push(bullet)
   for (let bullet of bullets) {
