@@ -1,4 +1,4 @@
-import { rotate_sprite } from "./draw_funcs.js";
+import { rotate_sprite } from "./misc.js";
 import { bullets } from "../game.js";
 
 export function aim(character_x, character_y, target_x, target_y) {
