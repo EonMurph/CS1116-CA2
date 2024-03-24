@@ -1,9 +1,10 @@
 import { createPlayer } from "./js_modules/characters.js";
 import { Enemy } from "./js_modules/enemies.js";
-import { aim, closestEnemy } from "./js_modules/shooting.js";
+import { aim, closestEnemy, fire } from "./js_modules/shooting.js";
 import { rotate_sprite } from "./js_modules/misc.js";
 
 let enemies = [];
+export let bullets = [];
 const enemyImage = new Image();
 // Enemy(height, width, x, y, xSpeed, ySpeed, image, fireRate, damage)
 const enemy1 = new Enemy(64, 64, 640, 250, 5, 5, enemyImage, 10, 10);
@@ -122,13 +123,21 @@ function draw() {
   let nearestEnemy = closestEnemy(player, enemies);
   let angle = aim(player.x, player.y, nearestEnemy.x, nearestEnemy.y);
   rotate_sprite(player, angle);
-
+  fire(player, angle);
+  
   for (let enemy of enemies) {
     let angle = aim(enemy.x, enemy.y, player.x, player.y);
     rotate_sprite(enemy, angle);
   }
-
+  
   player.move();
+  
+  for (let bullet of bullets) {
+    if (out_of_bounds(bullet)[0]) {
+      let index = bullets.indexOf(bullet);
+      bullets.splice(index, 1);
+    }
+  }
 }
 
 function keyDown(event) {

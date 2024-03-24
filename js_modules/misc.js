@@ -8,13 +8,23 @@ export function rotate_sprite(sprite, angle) {
   context.translate(sprite.x + sprite.width / 2, sprite.y + sprite.height / 2);
   context.rotate(angle);
 
-  context.drawImage(
-    sprite.image,
-    (sprite.width / 2) * -1,
-    (sprite.height / 2) * -1,
-    sprite.width,
-    sprite.height
-  );
+  if (sprite.image) {
+    context.drawImage(
+      sprite.image,
+      (sprite.width / 2) * -1,
+      (sprite.height / 2) * -1,
+      sprite.width,
+      sprite.height
+    );
+  } else {
+    context.fillStyle = "yellow";
+    context.fillRect(
+      (sprite.width / 2) * -1,
+      (sprite.height / 2) * -1,
+      sprite.width,
+      sprite.height
+    );
+  }
 
   context.restore();
 }

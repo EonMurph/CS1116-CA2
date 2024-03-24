@@ -59,7 +59,7 @@ export function createPlayer(height, width, x, y, xSpeed, ySpeed, image) {
     if (key === "d") {
       moveRight = true;
     }
-  }
+  };
   player.keyUp = (key) => {
     if (key === "w") {
       moveUp = false;
@@ -74,7 +74,7 @@ export function createPlayer(height, width, x, y, xSpeed, ySpeed, image) {
     if (key === "d") {
       moveRight = false;
     }
-  }
+  };
 
   return player;
 }
