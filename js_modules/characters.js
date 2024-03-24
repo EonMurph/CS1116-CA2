@@ -9,6 +9,8 @@ export function createPlayer(height, width, x, y, speed, image) {
   let moveLeft = false;
   let moveRight = false;
   player.fireRate = 10; // testing purposes, will be later added to specific guns
+  player.xFrame = 0;
+  player.yFrame = 0;
 
   player.move = () => {
     if (moveUp) {
@@ -43,6 +45,9 @@ export function createPlayer(height, width, x, y, speed, image) {
           background.map[i].push(background.map[i].shift());
         }
       }
+    }
+    if (moveUp || moveDown || moveRight || moveLeft) {
+      player.xFrame = (player.xFrame + 1) % 4;
     }
   };
 

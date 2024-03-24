@@ -14,7 +14,7 @@ const enemy4 = new Enemy(64, 64, 350, 512, 2, enemyImage, 60, 10);
 enemies.push(enemy1, enemy2, enemy3, enemy4);
 
 const playerImage = new Image();
-const player = createPlayer(64, 64, 1280 / 2, 1024 / 2, 20, playerImage);
+const player = createPlayer(96, 64, 1280 / 2, 1024 / 2, 20, playerImage);
 const playerKeys = ["w", "s", "d", "a"];
 
 export let canvas;
@@ -85,7 +85,7 @@ function init() {
     [
       { var: background.backgroundImage, url: "images/tester_tilemap.png" },
       { var: enemyImage, url: "images/monsters/transparent/Icon2.png" },
-      { var: playerImage, url: "images/monsters/transparent/Icon10.png" },
+      { var: playerImage, url: "images/Charactervector.png" },
     ],
     draw
   );
@@ -106,7 +106,28 @@ function draw() {
 
   let nearestEnemy = closestEnemy(player, enemies);
   let angle = aim(player.x, player.y, nearestEnemy.x, nearestEnemy.y);
-  rotate_sprite(player, angle);
+  let angleDegrees = angle * (180 / Math.PI);
+  // rotate_sprite(player, angle);
+  if (angleDegrees > 45 && angleDegrees < 135) {
+    player.yFrame = 0;
+  } else if (angleDegrees < 45 && angleDegrees > -45) {
+    player.yFrame = 3;
+  } else if (angleDegrees < -45 && angleDegrees > -135) {
+    player.yFrame = 1;
+  } else {
+    player.yFrame = 2;
+  }
+  context.drawImage(
+    playerImage,
+    player.xFrame * player.width,
+    player.yFrame * player.height,
+    player.width,
+    player.height,
+    player.x,
+    player.y,
+    player.width,
+    player.height
+  );
   second = new Date().getSeconds();
   if (second !== lastSecond) {
     // fire(player, angle, second);
