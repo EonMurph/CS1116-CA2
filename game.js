@@ -1,7 +1,7 @@
 import { createPlayer } from "./js_modules/characters.js";
 import { Enemy } from "./js_modules/enemies.js";
-import { aim, closestEnemy, fire } from "./js_modules/shooting.js";
-import { rotate_sprite } from "./js_modules/misc.js";
+import { aim, closestEnemy, fire, moveBullets } from "./js_modules/shooting.js";
+import { rotate_sprite, drawBackground } from "./js_modules/misc.js";
 
 let enemies = [];
 export let bullets = [];
@@ -23,6 +23,9 @@ export let context;
 let fpsInterval = 1000 / 30; // the denominator is frames-per-second
 let now;
 let then = Date.now();
+
+let second;
+let lastSecond;
 
 export const background = {
   tilesPerRow: 2,
@@ -99,40 +102,29 @@ function draw() {
 
   context.clearRect(0, 0, canvas.width, canvas.height);
 
-  for (let r = 0; r < background.numRows; r += 1) {
-    for (let c = 0; c < background.numCols; c += 1) {
-      let tile = background.map[r][c];
-      if (tile >= 0) {
-        let tileRow = Math.floor(tile / background.tilesPerRow);
-        let tileCol = Math.floor(tile % background.tilesPerRow);
-        context.drawImage(
-          background.backgroundImage,
-          tileCol * background.tileSize,
-          tileRow * background.tileSize,
-          background.tileSize,
-          background.tileSize,
-          c * background.tileSize,
-          r * background.tileSize,
-          background.tileSize,
-          background.tileSize
-        );
-      }
-    }
-  }
+  drawBackground(background);
 
   let nearestEnemy = closestEnemy(player, enemies);
   let angle = aim(player.x, player.y, nearestEnemy.x, nearestEnemy.y);
   rotate_sprite(player, angle);
-  fire(player, angle);
-  
+  second = new Date().getSeconds();
+  if (second !== lastSecond) {
+    // fire(player, angle, second);
+  }
+
   for (let enemy of enemies) {
     let angle = aim(enemy.x, enemy.y, player.x, player.y);
+    // enemy.move(player.x, player.y)
     rotate_sprite(enemy, angle);
-    fire(enemy, angle);
+    if (second !== lastSecond) {
+      fire(enemy, angle, second);
+    }
   }
-  
+  lastSecond = second;
+
+  moveBullets(bullets);
   player.move();
-  
+
   for (let bullet of bullets) {
     if (out_of_bounds(bullet)[0]) {
       let index = bullets.indexOf(bullet);

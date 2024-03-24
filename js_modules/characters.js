@@ -8,6 +8,7 @@ export function createPlayer(height, width, x, y, xSpeed, ySpeed, image) {
   let moveDown = false;
   let moveLeft = false;
   let moveRight = false;
+  player.fireRate = 10; // testing purposes, will be later added to specific guns
 
   player.move = () => {
     if (moveUp) {
