@@ -1,5 +1,5 @@
 import { rotate_sprite } from "./draw_funcs.js";
-import { bullets } from "../game.js";
+import { bullets, context } from "../game.js";
 
 export function aim(character_x, character_y, target_x, target_y) {
   let xDistance = target_x - character_x;
@@ -29,8 +29,9 @@ export function fire(character, angle, seconds) {
     let bullet = {
       y: character.y + (character.height / 2),
       speed: 30,
-      width: 40,
-      height: 10,
+      // width: 40,
+      // height: 10,
+      radius: 10,
       angle: angle,
       owner: character.name,
       fireRate: character.fireRate,
@@ -48,8 +49,17 @@ export function fire(character, angle, seconds) {
 
 export function moveBullets(bullets) {
   for (let bullet of bullets) {
-    bullet.x += bullet.speed * Math.cos(bullet.angle);
-    bullet.y += bullet.speed * Math.sin(bullet.angle);
-    rotate_sprite(bullet, bullet.angle);
+    // bullet.x += bullet.speed * Math.cos(bullet.angle);
+    // bullet.y += bullet.speed * Math.sin(bullet.angle);
+    // rotate_sprite(bullet, bullet.angle);
+    if (bullet.owner === "Enemy") {
+      context.fillStyle = "red";
+    } else {
+      context.fillStyle = "yellow";
+    }
+    context.beginPath();
+    context.arc(bullet.x, bullet.y, bullet.radius, 0, Math.PI * 2);
+    context.fill();
+    context.stroke();
   }
 }
