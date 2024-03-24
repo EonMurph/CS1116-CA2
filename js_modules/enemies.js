@@ -1,12 +1,11 @@
 export class Enemy {
-  constructor(height, width, x, y, xSpeed, ySpeed, image, fireRate, damage) {
+  constructor(height, width, x, y, speed, image, fireRate, damage) {
     this.name = "Enemy";
     this.height = height;
     this.width = width;
     this.x = x;
     this.y = y;
-    this.xSpeed = xSpeed;
-    this.ySpeed = ySpeed;
+    this.speed = speed;
     this.image = image;
     this.fireRate = fireRate;
     this.damage = damage;
@@ -22,16 +21,16 @@ export class Enemy {
     let distance = this.distance_to_player(player_x, player_y);
     if (Math.abs(distance.x) > 15) {
       if (distance.x < 0) {
-        this.x += this.xSpeed;
+        this.x += this.speed;
       } else if (distance.x > 0) {
-        this.x -= this.xSpeed;
+        this.x -= this.speed;
       }
     }
     if (Math.abs(distance.y) > 20) {
       if (distance.y < 0) {
-        this.y += this.ySpeed;
+        this.y += this.speed;
       } else if (distance.y > 0) {
-        this.y -= this.ySpeed;
+        this.y -= this.speed;
       }
     }
   }

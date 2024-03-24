@@ -6,15 +6,15 @@ import { rotate_sprite, drawBackground } from "./js_modules/misc.js";
 let enemies = [];
 export let bullets = [];
 const enemyImage = new Image();
-// Enemy(height, width, x, y, xSpeed, ySpeed, image, fireRate, damage)
-const enemy1 = new Enemy(64, 64, 640, 250, 5, 5, enemyImage, 10, 10);
-const enemy2 = new Enemy(64, 64, 640, 700, 8, 8, enemyImage, 10, 10);
-const enemy3 = new Enemy(64, 64, 900, 512, 2, 2, enemyImage, 10, 10);
-const enemy4 = new Enemy(64, 64, 350, 512, 2, 2, enemyImage, 10, 10);
+// Enemy(height, width, x, y, speed, image, bpm, damage)
+const enemy1 = new Enemy(64, 64, 640, 250, 5, enemyImage, 15, 10);
+const enemy2 = new Enemy(64, 64, 640, 700, 8, enemyImage, 306, 10);
+const enemy3 = new Enemy(64, 64, 900, 512, 2, enemyImage, 45, 10);
+const enemy4 = new Enemy(64, 64, 350, 512, 2, enemyImage, 60, 10);
 enemies.push(enemy1, enemy2, enemy3, enemy4);
 
 const playerImage = new Image();
-const player = createPlayer(64, 64, 1280 / 2, 1024 / 2, 20, 25, playerImage);
+const player = createPlayer(64, 64, 1280 / 2, 1024 / 2, 20, playerImage);
 const playerKeys = ["w", "s", "d", "a"];
 
 export let canvas;

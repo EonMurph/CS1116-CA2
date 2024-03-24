@@ -42,8 +42,8 @@ export function fire(character, angle, seconds) {
 
 export function moveBullets(bullets) {
   for (let bullet of bullets) {
-    bullet.x += bullet.xSpeed * Math.cos(bullet.angle);
-    bullet.y += bullet.ySpeed * Math.sin(bullet.angle);
+    bullet.x += bullet.speed * Math.cos(bullet.angle);
+    bullet.y += bullet.speed * Math.sin(bullet.angle);
     rotate_sprite(bullet, bullet.angle);
   }
 }

@@ -1,7 +1,7 @@
 import { canvas, background } from "../game.js";
 
-export function createPlayer(height, width, x, y, xSpeed, ySpeed, image) {
-  const player = { name: "Player", height, width, x, y, xSpeed, ySpeed, image };
+export function createPlayer(height, width, x, y, speed, image) {
+  const player = { name: "Player", height, width, x, y, speed, image };
   const y_boundary = 0.15;
   const x_boundary = 0.15;
   let moveUp = false;
@@ -13,14 +13,14 @@ export function createPlayer(height, width, x, y, xSpeed, ySpeed, image) {
   player.move = () => {
     if (moveUp) {
       if (player.y > canvas.height * y_boundary) {
-        player.y -= player.ySpeed;
+        player.y -= player.speed;
       } else {
         background.map.unshift(background.map.pop());
       }
     }
     if (moveDown) {
       if (player.y + player.height < canvas.height * (1 - y_boundary)) {
-        player.y += player.ySpeed;
+        player.y += player.speed;
       } else {
         background.map.push(background.map.shift());
       }
@@ -28,7 +28,7 @@ export function createPlayer(height, width, x, y, xSpeed, ySpeed, image) {
 
     if (moveLeft) {
       if (player.x > canvas.width * x_boundary) {
-        player.x -= player.xSpeed;
+        player.x -= player.speed;
       } else {
         for (let i = 0; i < background.numRows; i += 1) {
           background.map[i].unshift(background.map[i].pop());
@@ -37,7 +37,7 @@ export function createPlayer(height, width, x, y, xSpeed, ySpeed, image) {
     }
     if (moveRight) {
       if (player.x + player.width < canvas.width * (1 - x_boundary)) {
-        player.x += player.xSpeed;
+        player.x += player.speed;
       } else {
         for (let i = 0; i < background.numRows; i += 1) {
           background.map[i].push(background.map[i].shift());
