@@ -115,7 +115,7 @@ function draw() {
   drawSprite(player, angle);
   second = new Date().getSeconds();
   if (second !== lastSecond) {
-    // fire(player, angle, second);
+    fire(player, angle, second);
   }
 
   for (let enemy of enemies) {

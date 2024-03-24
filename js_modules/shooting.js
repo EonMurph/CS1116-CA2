@@ -27,8 +27,7 @@ export function fire(character, angle, seconds) {
 
   if (seconds % shootSecondsInterval === 0) {
     let bullet = {
-      x: character.x,
-      y: character.y,
+      y: character.y + (character.height / 2),
       speed: 30,
       width: 40,
       height: 10,
@@ -36,6 +35,13 @@ export function fire(character, angle, seconds) {
       owner: character.name,
       fireRate: character.fireRate,
     };
+    if (character.yFrame === 0) {
+      bullet.x = character.x;
+    } else if (character.yFrame === 1) {
+      bullet.x = character.x + character.width;
+    } else if (character.yFrame === 2 || character.yFrame === 3) {
+      bullet.x = character.x + (character.width / 2);
+    }
     bullets.push(bullet);
   }
 }
