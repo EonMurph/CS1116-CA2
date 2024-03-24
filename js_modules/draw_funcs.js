@@ -55,3 +55,28 @@ export function drawBackground(background) {
     }
   }
 }
+
+export function drawSprite(sprite, angle) {
+  let angleDegrees = angle * (180 / Math.PI);
+
+  if (angleDegrees > 45 && angleDegrees < 135) {
+    sprite.yFrame = 0;
+  } else if (angleDegrees < 45 && angleDegrees > -45) {
+    sprite.yFrame = 3;
+  } else if (angleDegrees < -45 && angleDegrees > -135) {
+    sprite.yFrame = 1;
+  } else {
+    sprite.yFrame = 2;
+  }
+  context.drawImage(
+    sprite.image,
+    sprite.xFrame * sprite.width,
+    sprite.yFrame * sprite.height,
+    sprite.width,
+    sprite.height,
+    sprite.x,
+    sprite.y,
+    sprite.width,
+    sprite.height
+  );
+}

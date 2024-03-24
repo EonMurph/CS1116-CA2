@@ -7,6 +7,8 @@ export class Enemy {
     this.y = y;
     this.speed = speed;
     this.image = image;
+    this.xFrame = 0;
+    this.yFrame = 0;
     this.fireRate = fireRate;
     this.damage = damage;
   }

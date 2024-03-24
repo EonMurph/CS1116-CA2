@@ -112,26 +112,7 @@ function draw() {
   let angle = aim(player.x, player.y, nearestEnemy.x, nearestEnemy.y);
   let angleDegrees = angle * (180 / Math.PI);
   // rotate_sprite(player, angle);
-  if (angleDegrees > 45 && angleDegrees < 135) {
-    player.yFrame = 0;
-  } else if (angleDegrees < 45 && angleDegrees > -45) {
-    player.yFrame = 3;
-  } else if (angleDegrees < -45 && angleDegrees > -135) {
-    player.yFrame = 1;
-  } else {
-    player.yFrame = 2;
-  }
-  context.drawImage(
-    playerImage,
-    player.xFrame * player.width,
-    player.yFrame * player.height,
-    player.width,
-    player.height,
-    player.x,
-    player.y,
-    player.width,
-    player.height
-  );
+  drawSprite(player, angle);
   second = new Date().getSeconds();
   if (second !== lastSecond) {
     // fire(player, angle, second);
@@ -140,7 +121,8 @@ function draw() {
   for (let enemy of enemies) {
     let angle = aim(enemy.x, enemy.y, player.x, player.y);
     // enemy.move(player.x, player.y)
-    rotate_sprite(enemy, angle);
+    // rotate_sprite(enemy, angle);
+    drawSprite(enemy, angle);
     if (second !== lastSecond) {
       fire(enemy, angle, second);
     }
