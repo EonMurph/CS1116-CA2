@@ -1,16 +1,20 @@
 import { createPlayer } from "./js_modules/characters.js";
 import { Enemy } from "./js_modules/enemies.js";
 import { aim, closestEnemy, fire, moveBullets } from "./js_modules/shooting.js";
-import { rotate_sprite, drawBackground } from "./js_modules/draw_funcs.js";
+import {
+  rotate_sprite,
+  drawBackground,
+  drawSprite,
+} from "./js_modules/draw_funcs.js";
 
 let enemies = [];
 export let bullets = [];
 const enemyImage = new Image();
 // Enemy(height, width, x, y, speed, image, bpm, damage)
-const enemy1 = new Enemy(64, 64, 640, 250, 5, enemyImage, 15, 10);
-const enemy2 = new Enemy(64, 64, 640, 700, 8, enemyImage, 306, 10);
-const enemy3 = new Enemy(64, 64, 900, 512, 2, enemyImage, 45, 10);
-const enemy4 = new Enemy(64, 64, 350, 512, 2, enemyImage, 60, 10);
+const enemy1 = new Enemy(96, 64, 640, 250, 5, enemyImage, 15, 10);
+const enemy2 = new Enemy(96, 64, 640, 700, 8, enemyImage, 306, 10);
+const enemy3 = new Enemy(96, 64, 900, 512, 2, enemyImage, 45, 10);
+const enemy4 = new Enemy(96, 64, 350, 512, 2, enemyImage, 60, 10);
 enemies.push(enemy1, enemy2, enemy3, enemy4);
 
 const playerImage = new Image();
@@ -84,7 +88,7 @@ function init() {
   load_assets(
     [
       { var: background.backgroundImage, url: "images/tester_tilemap.png" },
-      { var: enemyImage, url: "images/monsters/transparent/Icon2.png" },
+      { var: enemyImage, url: "images/Charactervector.png" },
       { var: playerImage, url: "images/Charactervector.png" },
     ],
     draw
