@@ -32,7 +32,26 @@ export function rotate_sprite(sprite, angle) {
 
   context.restore();
 }
-// export function undo_rotate_context(sprite, angle) {
-//   context.rotate(-angle);
-//   context.translate(-sprite.x - sprite.width / 2, -sprite.y - sprite.height / 2);
-// }
+
+export function drawBackground(background) {
+  for (let r = 0; r < background.numRows; r += 1) {
+    for (let c = 0; c < background.numCols; c += 1) {
+      let tile = background.map[r][c];
+      if (tile >= 0) {
+        let tileRow = Math.floor(tile / background.tilesPerRow);
+        let tileCol = Math.floor(tile % background.tilesPerRow);
+        context.drawImage(
+          background.backgroundImage,
+          tileCol * background.tileSize,
+          tileRow * background.tileSize,
+          background.tileSize,
+          background.tileSize,
+          c * background.tileSize,
+          r * background.tileSize,
+          background.tileSize,
+          background.tileSize
+        );
+      }
+    }
+  }
+}
