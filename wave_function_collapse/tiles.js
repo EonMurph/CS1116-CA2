@@ -2,8 +2,8 @@ export const tiles = [];
 export const BLANK = 0;
 export const UP = 1;
 export const RIGHT = 2;
-export const DOWN = 3;
-export const LEFT = 4;
+export const DOWN = 4;
+export const LEFT = 3;
 
 export const tileSize = 64;
 
@@ -34,7 +34,7 @@ tiles[RIGHT] = {
     [RIGHT, DOWN, LEFT], // up
     [UP, DOWN, LEFT], // right
     [BLANK, LEFT], // left
-    [UP, RIGHT, LEFT], // left
+    [UP, RIGHT, LEFT], // down
   ],
 };
 tiles[DOWN] = {
