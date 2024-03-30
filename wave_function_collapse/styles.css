@@ -1,0 +1,10 @@
+canvas {
+  *:has(&) {
+    display: flex;
+    justify-content: center;
+  }
+  margin-top: 10px;
+  border: solid 2px black;
+  height: 640px;
+  width: 640px;
+}
