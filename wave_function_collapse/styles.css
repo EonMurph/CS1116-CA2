@@ -7,4 +7,5 @@ canvas {
   border: solid 2px black;
   height: 640px;
   width: 640px;
+  background-color: blue;
 }

@@ -1,4 +1,4 @@
-import { safeNeighbour, indexToCR, CRToIndex } from "../adjacent.js";
+import { safeNeighbour, indexToCR, CRToIndex } from "./adjacent.js";
 import { context, choice } from "./script.js";
 import { tiles } from "./tiles.js";
 import { grid } from "./grid.js";
@@ -61,5 +61,5 @@ export function collapse() {
   cell.options = [];
   cell.entropy = 0;
 
-  grid[grid.indexOf(possibleChoicesCellIndex)] = cell;
+  grid[grid.indexOf(cell)] = cell;
 }
