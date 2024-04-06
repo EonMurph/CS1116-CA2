@@ -1,4 +1,4 @@
-import { context } from "../game.js";
+import { context, canvas } from "../game.js";
 
 // code for rotating a sprite found on stackoverflow
 // https://stackoverflow.com/a/11985464
@@ -33,25 +33,38 @@ export function rotate_sprite(sprite, angle) {
   context.restore();
 }
 
+// export function drawBackground(background) {
+//   for (let r = 0; r < background.numRows; r += 1) {
+//     for (let c = 0; c < background.numCols; c += 1) {
+//       let tile = background.map[r][c];
+//       if (tile >= 0) {
+//         let tileRow = Math.floor(tile / background.tilesPerRow);
+//         let tileCol = Math.floor(tile % background.tilesPerRow);
+//         context.drawImage(
+//           background.backgroundImage,
+//           tileCol * background.tileSize,
+//           tileRow * background.tileSize,
+//           background.tileSize,
+//           background.tileSize,
+//           c * background.tileSize,
+//           r * background.tileSize,
+//           background.tileSize,
+//           background.tileSize
+//         );
+//       }
+//     }
+//   }
+// }
 export function drawBackground(background) {
-  for (let r = 0; r < background.numRows; r += 1) {
-    for (let c = 0; c < background.numCols; c += 1) {
-      let tile = background.map[r][c];
-      if (tile >= 0) {
-        let tileRow = Math.floor(tile / background.tilesPerRow);
-        let tileCol = Math.floor(tile % background.tilesPerRow);
-        context.drawImage(
-          background.backgroundImage,
-          tileCol * background.tileSize,
-          tileRow * background.tileSize,
-          background.tileSize,
-          background.tileSize,
-          c * background.tileSize,
-          r * background.tileSize,
-          background.tileSize,
-          background.tileSize
-        );
-      }
+  const height = canvas.height / 64;
+  const width = canvas.width / 64;
+  for (let r = 0; r < height; r++) {
+    for (let c = 0; c < width; c++) {
+      context.drawImage(
+        background.tiles.tiles[background.map[r][c]].image,
+        c * background.tileSize,
+        r * background.tileSize
+      );
     }
   }
 }
