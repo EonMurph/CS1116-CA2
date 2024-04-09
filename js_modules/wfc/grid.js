@@ -4,7 +4,7 @@ export function createGrid(dimension, tiles) {
     for (let c = 0; c < dimension; c++) {
       let cell = {
         tile: null,
-        options: [tiles.BLANK, tiles.UP, tiles.RIGHT, tiles.LEFT, tiles.DOWN],
+        options: Array.from(Array(tiles.tiles.length).keys()),
         c,
         r,
       };
