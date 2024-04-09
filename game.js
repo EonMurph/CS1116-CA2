@@ -133,7 +133,7 @@ function draw() {
   }
   lastSecond = second;
 
-  moveBullets(bullets);
+  // moveBullets(bullets);
   player.move();
 
   for (let bullet of bullets) {

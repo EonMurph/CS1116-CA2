@@ -49,9 +49,9 @@ export function fire(character, angle, seconds) {
 
 export function moveBullets(bullets) {
   for (let bullet of bullets) {
-    // bullet.x += bullet.speed * Math.cos(bullet.angle);
-    // bullet.y += bullet.speed * Math.sin(bullet.angle);
-    // rotate_sprite(bullet, bullet.angle);
+    bullet.x += bullet.speed * Math.cos(bullet.angle);
+    bullet.y += bullet.speed * Math.sin(bullet.angle);
+    rotate_sprite(bullet, bullet.angle);
     if (bullet.owner === "Enemy") {
       context.fillStyle = "red";
     } else {
