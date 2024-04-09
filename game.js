@@ -19,7 +19,7 @@ const enemy4 = new Enemy(96, 64, 350, 512, 2, enemyImage, 60, 10);
 enemies.push(enemy1, enemy2, enemy3, enemy4);
 
 const playerImage = new Image();
-const player = createPlayer(96, 64, 1280 / 2, 1024 / 2, 20, playerImage);
+export const player = createPlayer(96, 64, 1280 / 2, 1024 / 2, 20, playerImage);
 const playerKeys = ["w", "s", "d", "a"];
 
 export let canvas;
