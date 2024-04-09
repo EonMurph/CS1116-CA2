@@ -8,4 +8,4 @@ export const background = {
 };
 
 // prettier-ignore
-[background.map, background.tiles] = createMap(32);
+[background.map, background.tiles] = createMap(20);
