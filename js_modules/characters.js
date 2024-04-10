@@ -47,7 +47,7 @@ export function createPlayer(height, width, x, y, speed, image) {
     }
 
     if (moveUp || moveDown || moveRight || moveLeft) {
-      player.xFrame = (player.xFrame + 1) % 4;
+      player.xFrame = (player.xFrame + 1) % 3;
     }
 
     const mapLength = background.map.length;

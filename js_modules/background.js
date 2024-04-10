@@ -3,7 +3,7 @@ export const background = {
   tilesPerRow: 2,
   numCols: 20,
   numRows: 16,
-  tileSize: 64,
+  tileSize: 32,
   // backgroundImage: new Image(),
 };
 

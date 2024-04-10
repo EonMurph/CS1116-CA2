@@ -12,14 +12,15 @@ let enemies = [];
 export let bullets = [];
 const enemyImage = new Image();
 // Enemy(height, width, x, y, speed, image, bpm, damage)
-const enemy1 = new Enemy(96, 64, 640, 250, 5, enemyImage, 15, 10);
-const enemy2 = new Enemy(96, 64, 640, 700, 8, enemyImage, 306, 10);
-const enemy3 = new Enemy(96, 64, 900, 512, 2, enemyImage, 45, 10);
-const enemy4 = new Enemy(96, 64, 350, 512, 2, enemyImage, 60, 10);
-enemies.push(enemy1, enemy2, enemy3, enemy4);
+const enemy1 = new Enemy(32, 32, 320, 125, 5, enemyImage, 15, 10);
+enemies.push(enemy1);
+// const enemy2 = new Enemy(32, 32, 320, 350, 8, enemyImage, 306, 10);
+// const enemy3 = new Enemy(32, 32, 450, 256, 2, enemyImage, 45, 10);
+// const enemy4 = new Enemy(32, 32, 172, 256, 2, enemyImage, 60, 10);
+// enemies.push(enemy1, enemy2, enemy3, enemy4);
 
 const playerImage = new Image();
-export const player = createPlayer(96, 64, 1280 / 2, 1024 / 2, 20, playerImage);
+export const player = createPlayer(32, 32, 640 / 2, 512 / 2, 20, playerImage);
 const playerKeys = ["w", "s", "d", "a"];
 
 export let canvas;
@@ -87,8 +88,8 @@ function init() {
   window.addEventListener("keyup", keyUp, false);
 
   let assets = [
-    { var: enemyImage, url: "images/Charactervector.png" },
-    { var: playerImage, url: "images/Charactervector.png" },
+    { var: enemyImage, url: "images/chef.png" },
+    { var: playerImage, url: "images/chef.png" },
   ];
   for (let i = 0; i < background.tiles.tiles.length; i++) {
     assets.push({

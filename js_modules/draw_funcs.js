@@ -77,9 +77,9 @@ export function drawSprite(sprite, angle) {
   if (angleDegrees > 45 && angleDegrees < 135) {
     sprite.yFrame = 0;
   } else if (angleDegrees < 45 && angleDegrees > -45) {
-    sprite.yFrame = 3;
-  } else if (angleDegrees < -45 && angleDegrees > -135) {
     sprite.yFrame = 1;
+  } else if (angleDegrees < -45 && angleDegrees > -135) {
+    sprite.yFrame = 3;
   } else {
     sprite.yFrame = 2;
   }
