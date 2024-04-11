@@ -1,8 +1,8 @@
 import { canvas } from "../game.js";
 import { background } from "./background.js";
 
-export function createPlayer(height, width, x, y, speed, image) {
-  const player = { name: "Player", height, width, x, y, speed, image };
+export function createPlayer(height, width, speed, image) {
+  const player = { name: "Player", height, width, speed, image };
   const y_boundary = 0.15;
   const x_boundary = 0.15;
   let moveUp = false;
