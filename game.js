@@ -88,9 +88,14 @@ function init() {
   window.addEventListener("keyup", keyUp, false);
 
   let assets = [
-    { var: enemyImage, url: "images/chef.png" },
-    { var: playerImage, url: "images/chef.png" },
+    { var: player.image, url: "images/sprites/chef.png" },
   ];
+  for (let i = 0; i < enemies.length; i++) {
+    assets.push({
+      var: enemies[i].image,
+      url: "images/sprites/chef.png"
+    })
+  }
   for (let i = 0; i < background.tiles.tiles.length; i++) {
     assets.push({
       var: background.tiles.tiles[i].image,
