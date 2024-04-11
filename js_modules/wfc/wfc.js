@@ -7,7 +7,7 @@ export function createMap(dimension) {
   const tiles = createTiles();
   let grid;
   let solved = false;
-  
+
   while (!solved) {
     grid = createGrid(dimension, tiles);
 
@@ -15,7 +15,7 @@ export function createMap(dimension) {
       [grid, solved] = collapse(grid, tiles);
       grid = calculateEntropy(grid, dimension);
     }
-  }
+  };
 
   let map = [];
   for (let r = 0; r < dimension; r++) {

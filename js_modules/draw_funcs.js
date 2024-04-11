@@ -56,8 +56,8 @@ export function rotate_sprite(sprite, angle) {
 //   }
 // }
 export function drawBackground(background) {
-  const height = canvas.height / 64;
-  const width = canvas.width / 64;
+  const height = canvas.height / background.tileSize;
+  const width = canvas.width / background.tileSize;
   for (let r = 0; r < height; r++) {
     for (let c = 0; c < width; c++) {
       let cIndex = c + player.deltaC;

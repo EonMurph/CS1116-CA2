@@ -66,16 +66,16 @@ export function createTiles() {
       [UP, RIGHT, LEFT], // down
     ],
   };
-  // tiles.tiles[DOOR] = {
-  //   tile: "door",
-  //   image: new Image(),
-  //   rules: [
-  //     [BLANK, UP, DOWN, RIGHT, LEFT], // up
-  //     [BLANK, UP, DOWN, RIGHT, LEFT], // right
-  //     [BLANK, UP, DOWN, RIGHT, LEFT], // left
-  //     [BLANK, UP, DOWN, RIGHT, LEFT], // down
-  //   ],
-  // };
+  // // tiles.tiles[DOOR] = {
+  // //   tile: "door",
+  // //   image: new Image(),
+  // //   rules: [
+  // //     [BLANK, UP, DOWN, RIGHT, LEFT], // up
+  // //     [BLANK, UP, DOWN, RIGHT, LEFT], // right
+  // //     [BLANK, UP, DOWN, RIGHT, LEFT], // left
+  // //     [BLANK, UP, DOWN, RIGHT, LEFT], // down
+  // //   ],
+  // // };
 
   return tiles;
 }

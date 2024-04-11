@@ -51,17 +51,17 @@ export function createPlayer(height, width, x, y, speed, image) {
     }
 
     const mapLength = background.map.length;
-    const canvasHeight = canvas.height / 64;
-    const canvasWidth = canvas.width / 64;
+    const canvasRows = canvas.height / background.tileSize;
+    const canvasCols = canvas.width / background.tileSize;
     if (player.deltaR < 0) {
       player.deltaR = 0;
-    } else if (player.deltaR > mapLength - canvasHeight) {
-      player.deltaR = mapLength - canvasHeight;
+    } else if (player.deltaR > mapLength - canvasRows) {
+      player.deltaR = mapLength - canvasRows;
     }
     if (player.deltaC < 0) {
       player.deltaC = 0;
-    } else if (player.deltaC > mapLength - canvasWidth) {
-      player.deltaC = mapLength - canvasWidth;
+    } else if (player.deltaC > mapLength - canvasCols) {
+      player.deltaC = mapLength - canvasCols;
     }
   };
 
