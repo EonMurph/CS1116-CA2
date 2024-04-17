@@ -1,7 +1,7 @@
 import { canvas } from "../game.js";
 import { background } from "./background.js";
 
-export function createPlayer(height, width, speed, image) {
+export default function createPlayer(height, width, speed, image) {
   const player = { name: "Player", height, width, speed, image };
   const y_boundary = 0.15;
   const x_boundary = 0.15;

@@ -1,4 +1,4 @@
-export class Enemy {
+export default class Enemy {
   constructor(height, width, x, y, speed, image, fireRate, damage) {
     this.name = "Enemy";
     this.height = height;
