@@ -22,26 +22,29 @@ export function closestEnemy(player, enemies) {
   return nearestEnemy;
 }
 
-export function fire(character, angle, seconds) {
-  let shootSecondsInterval = Math.round(60 / character.fireRate);
+export function fire(character, angle) {
+  let charX = character.x + character.boundaryBox.xOffset;
+  let charY = character.y + character.boundaryBox.yOffset;
 
-  if (seconds % shootSecondsInterval === 0) {
+  if (character.framesTilNextShot > 0) {
+    character.framesTilNextShot -= 1;
+  }
+  if (character.framesTilNextShot === 0) {
+    character.framesTilNextShot = character.fireRate;
     let bullet = {
-      y: character.y + (character.height / 2),
-      speed: 30,
-      // width: 40,
-      // height: 10,
-      radius: 10,
+      y: charY + character.boundaryBox.height / 2,
+      speed: 4,
+      radius: 4,
       angle: angle,
       owner: character.name,
       fireRate: character.fireRate,
     };
     if (character.yFrame === 0) {
-      bullet.x = character.x;
+      bullet.x = charX;
     } else if (character.yFrame === 1) {
-      bullet.x = character.x + character.width;
+      bullet.x = charX + character.boundaryBox.width;
     } else if (character.yFrame === 2 || character.yFrame === 3) {
-      bullet.x = character.x + (character.width / 2);
+      bullet.x = charX + character.boundaryBox.width / 2;
     }
     bullets.push(bullet);
   }

@@ -9,7 +9,7 @@ export class Enemy {
     this.image = image;
     this.xFrame = 0;
     this.yFrame = 0;
-    this.fireRate = fireRate;
+    this.fireRate = Math.round(1800 / fireRate);
     this.damage = damage;
   }
 
