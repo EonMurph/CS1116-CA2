@@ -1,4 +1,4 @@
-import { context, canvas, player } from "../game.js";
+import { context, canvas } from "../game.js";
 
 // code for rotating a sprite found on stackoverflow
 // https://stackoverflow.com/a/11985464
@@ -55,7 +55,7 @@ export function rotate_sprite(sprite, angle) {
 //     }
 //   }
 // }
-export function drawBackground(background) {
+export function drawBackground(background, player) {
   const height = canvas.height / background.tileSize;
   const width = canvas.width / background.tileSize;
   for (let r = 0; r < height; r++) {

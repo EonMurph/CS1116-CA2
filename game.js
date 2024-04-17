@@ -114,7 +114,7 @@ function draw() {
 
   context.clearRect(0, 0, canvas.width, canvas.height);
 
-  drawBackground(background);
+  drawBackground(background, player);
 
   let nearestEnemy = closestEnemy(player, enemies);
   let angle = aim(player.x, player.y, nearestEnemy.x, nearestEnemy.y);
