@@ -2,8 +2,8 @@ import { createMap } from "./wfc/wfc.js";
 
 export const background = {
   tilesPerRow: 2,
-  numCols: 32,
-  numRows: 26,
+  numCols: 320 / 16,
+  numRows: 256 / 16,
   tileSize: 16,
   // backgroundImage: new Image(),
 };
