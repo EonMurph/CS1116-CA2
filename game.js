@@ -165,9 +165,9 @@ function draw() {
   then = now - (elapsed % fpsInterval);
 
   player.move();
-  // for (let enemy of enemies) {
-  // enemy.move(player)
-  // }
+  for (let enemy of enemies) {
+    enemy.move(player);
+  }
 
   if (enemies.length === 0) {
     nextRoom();
@@ -255,7 +255,6 @@ function load_assets(assets, callback) {
     element.src = asset.url;
   }
 }
-
 function gameOver() {
   window.removeEventListener("keydown", keyDown, false);
   window.removeEventListener("keyup", keyUp, false);
@@ -264,6 +263,6 @@ function gameOver() {
 
 function nextRoom() {
   //* Enemy(height, width, x, y, speed, bpm, damage)
-  enemies.push(new Enemy(32, 32, 80, 70, 5, 15, 10));
+  enemies.push(new Enemy(32, 32, 10, 70, 5, 15, 10));
   console.log("next round");
 }
