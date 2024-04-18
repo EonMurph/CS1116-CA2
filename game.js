@@ -1,6 +1,12 @@
-import { createPlayer } from "./js_modules/characters.js";
-import { Enemy } from "./js_modules/enemies.js";
-import { aim, closestEnemy, fire, moveBullets } from "./js_modules/shooting.js";
+import createPlayer from "./js_modules/player.js";
+import { Enemy, enemyVariants } from "./js_modules/enemies.js";
+import {
+  aim,
+  closestEnemy,
+  drawBullets,
+  fire,
+  moveBullets,
+} from "./js_modules/shooting.js";
 import { background } from "./js_modules/background.js";
 import {
   rotate_sprite,

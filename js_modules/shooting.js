@@ -55,6 +55,11 @@ export function moveBullets(bullets) {
     bullet.x += bullet.speed * Math.cos(bullet.angle);
     bullet.y += bullet.speed * Math.sin(bullet.angle);
     rotate_sprite(bullet, bullet.angle);
+  }
+}
+
+export function drawBullets(bullets) {
+  for (let bullet of bullets) {
     if (bullet.owner === "Enemy") {
       context.fillStyle = "red";
     } else {
