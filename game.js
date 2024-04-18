@@ -16,6 +16,8 @@ import { bulletCollision, spriteCollision } from "./js_modules/collisions.js";
 
 let enemies = [];
 export let bullets = [];
+
+const player = createPlayer(32, 32, 6, new Image());
 const playerKeys = ["w", "a", "s", "d"];
 
 export let canvas;
@@ -82,6 +84,8 @@ function init() {
   window.addEventListener("keydown", keyDown, false);
   window.addEventListener("keyup", keyUp, false);
 
+  player.x = Math.floor(canvas.width / 3);
+  player.y = Math.floor(canvas.height / 3);
 
   let assets = [{ var: player.image, url: "images/sprites/chef.png" }];
   // for (let i = 0; i < enemies.length; i++) {
