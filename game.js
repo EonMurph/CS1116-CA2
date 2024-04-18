@@ -24,6 +24,7 @@ let fpsInterval = 1000 / 30; // the denominator is frames-per-second
 let now;
 let then = Date.now();
 
+let drawRequestId;
 
 // export const background = {
 //   tilesPerRow: 2,
@@ -155,7 +156,7 @@ function init() {
 // }
 
 function draw() {
-  window.requestAnimationFrame(draw);
+  drawRequestId = window.requestAnimationFrame(draw);
   now = Date.now();
   let elapsed = now - then;
   if (elapsed <= fpsInterval) {
@@ -253,6 +254,12 @@ function load_assets(assets, callback) {
     }
     element.src = asset.url;
   }
+}
+
+function gameOver() {
+  window.removeEventListener("keydown", keyDown, false);
+  window.removeEventListener("keyup", keyUp, false);
+  window.cancelAnimationFrame(drawRequestId);
 }
 
 function nextRoom() {
