@@ -16,15 +16,6 @@ import { bulletCollision, spriteCollision } from "./js_modules/collisions.js";
 
 let enemies = [];
 export let bullets = [];
-// Enemy(height, width, x, y, speed, image, bpm, damage)
-const enemy1 = new Enemy(32, 32, 250, 200, 5, new Image(), 15, 10);
-enemies.push(enemy1);
-// const enemy2 = new Enemy(32, 32, 320, 350, 8, enemyImage, 306, 10);
-// const enemy3 = new Enemy(32, 32, 450, 256, 2, enemyImage, 45, 10);
-// const enemy4 = new Enemy(32, 32, 172, 256, 2, enemyImage, 60, 10);
-// enemies.push(enemy1, enemy2, enemy3, enemy4);
-
-export const player = createPlayer(32, 32, 320 / 2, 256  / 2, 15, new Image());
 const playerKeys = ["w", "a", "s", "d"];
 
 export let canvas;
@@ -269,4 +260,10 @@ function load_assets(assets, callback) {
     }
     element.src = asset.url;
   }
+}
+
+function nextRoom() {
+  //* Enemy(height, width, x, y, speed, bpm, damage)
+  enemies.push(new Enemy(32, 32, 80, 70, 5, 15, 10));
+  console.log("next round");
 }
