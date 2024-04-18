@@ -9,7 +9,6 @@ import {
 } from "./js_modules/shooting.js";
 import { background } from "./js_modules/background.js";
 import {
-  rotate_sprite,
   drawBackground,
   drawSprite,
 } from "./js_modules/draw_funcs.js";
