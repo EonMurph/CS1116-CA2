@@ -1,10 +1,12 @@
 import { calculateEntropy, collapse } from "./collapse.js";
 import { tiles, BLANK, UP, RIGHT, DOWN, LEFT } from "./tiles.js";
-import { grid } from "./grid.js";
+import { createGrid } from "./grid.js";
 
 // INIT HTML ELEMENTS
 let canvas;
 export let context;
+export let solved;
+export let grid;
 
 document.addEventListener("DOMContentLoaded", init, false);
 
@@ -26,9 +28,13 @@ function init() {
 }
 
 function draw() {
-  for (let i = 0; i < grid.length; i++) {
-    collapse();
-    calculateEntropy();
+  solved = false;
+  while (!solved) {
+    grid = createGrid();
+    for (let i = 0; i < grid.length; i++) {
+      solved = collapse();
+      calculateEntropy();
+    }
   }
 }
 

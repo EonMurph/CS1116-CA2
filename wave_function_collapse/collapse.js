@@ -1,7 +1,6 @@
 import { safeNeighbour, indexToCR, CRToIndex } from "./adjacent.js";
-import { context, choice } from "./script.js";
+import { context, choice, solved, grid } from "./script.js";
 import { tiles } from "./tiles.js";
-import { grid } from "./grid.js";
 
 export function calculateEntropy() {
   const directions = [
@@ -55,11 +54,17 @@ export function collapse() {
 
   let possibleChoicesCellIndex = choice(possibleChoices);
   let cell = possibleChoices[possibleChoicesCellIndex];
-  let chosenTile = tiles[cell.options[choice(cell.options)]];
+  let chosenTile;
+  try {
+    chosenTile = tiles[cell.options[choice(cell.options)]];
+  } catch (error) {
+    return false;
+  }
   context.drawImage(chosenTile.image, cell.x, cell.y);
   cell.tile = chosenTile;
   cell.options = [];
   cell.entropy = 0;
 
   grid[grid.indexOf(cell)] = cell;
+  return true;
 }
