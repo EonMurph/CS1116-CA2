@@ -26,7 +26,7 @@ export function calculateEntropy() {
         let ruleIndex = directions.length - 1 - i;
         let options = cell.options;
         let rules = grid[neighbourCellIndex].tile.rules[ruleIndex];
-        // interestion of two arrays found at:
+        // intersection of two arrays found at:
         // https://stackoverflow.com/a/1885569
         cell.options = options.filter((value) => rules.includes(value));
       }
