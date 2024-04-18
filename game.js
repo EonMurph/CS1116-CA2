@@ -8,10 +8,7 @@ import {
   moveBullets,
 } from "./js_modules/shooting.js";
 import { background } from "./js_modules/background.js";
-import {
-  drawBackground,
-  drawSprite,
-} from "./js_modules/draw_funcs.js";
+import { drawBackground, drawSprite } from "./js_modules/draw_funcs.js";
 import { bulletCollision, spriteCollision } from "./js_modules/collisions.js";
 
 let enemies = [];
@@ -27,8 +24,6 @@ let fpsInterval = 1000 / 30; // the denominator is frames-per-second
 let now;
 let then = Date.now();
 
-let second;
-let lastSecond;
 
 // export const background = {
 //   tilesPerRow: 2,
@@ -88,12 +83,6 @@ function init() {
   player.y = Math.floor(canvas.height / 3);
 
   let assets = [{ var: player.image, url: "images/sprites/chef.png" }];
-  // for (let i = 0; i < enemies.length; i++) {
-  //   assets.push({
-  //     var: enemies[i].image,
-  //     url: "images/sprites/chef.png",
-  //   });
-  // }
   for (let variant of enemyVariants) {
     assets.push({
       var: variant.var,
@@ -167,7 +156,7 @@ function init() {
 
 function draw() {
   window.requestAnimationFrame(draw);
-  let now = Date.now();
+  now = Date.now();
   let elapsed = now - then;
   if (elapsed <= fpsInterval) {
     return;
