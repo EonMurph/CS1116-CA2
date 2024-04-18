@@ -7,6 +7,7 @@ import {
   drawBackground,
   drawSprite,
 } from "./js_modules/draw_funcs.js";
+import { bulletCollision, spriteCollision } from "./js_modules/collisions.js";
 
 let enemies = [];
 export let bullets = [];
@@ -103,6 +104,62 @@ function init() {
   load_assets(assets, draw);
 }
 
+// function draw() {
+//   window.requestAnimationFrame(draw);
+//   let now = Date.now();
+//   let elapsed = now - then;
+//   if (elapsed <= fpsInterval) {
+//     return;
+//   }
+//   then = now - (elapsed % fpsInterval);
+
+//   context.clearRect(0, 0, canvas.width, canvas.height);
+
+//   drawBackground(background, player);
+
+//   let nearestEnemy = closestEnemy(player, enemies);
+//   // let [collide, dx, dy] = collides(player, nearestEnemy);
+//   // console.log(dx, dy);
+//   // if (!collide) {
+//   // player.health--;
+//   // console.log(player.health);
+//   // player.move(dx, dy);
+//   // }
+//   player.move();
+//   let collides = spritesCollide(player, nearestEnemy);
+
+//   // spritesCollide(player, nearestEnemy);
+//   let angle = aim(player.x, player.y, nearestEnemy.x, nearestEnemy.y);
+//   // rotate_sprite(player, angle);
+//   drawSprite(player, angle);
+//   // second = new Date().getSeconds();
+//   // if (second !== lastSecond) {
+//   // fire(player, angle, second);
+//   // }
+//   lastSecond = seconds(lastSecond, fire, player, angle);
+
+//   for (let enemy of enemies) {
+//     angle = aim(enemy.x, enemy.y, player.x, player.y);
+//     // enemy.move(player.x, player.y)
+//     // rotate_sprite(enemy, angle);
+//     drawSprite(enemy, angle);
+//     //   if (second !== lastSecond) {
+//     //     fire(enemy, angle, second);
+//     //   }
+//   }
+//   // lastSecond = second;
+
+//   moveBullets(bullets);
+//   // player.move();
+
+//   for (let bullet of bullets) {
+//     if (out_of_bounds(bullet)[0]) {
+//       let index = bullets.indexOf(bullet);
+//       bullets.splice(index, 1);
+//     }
+//   }
+// }
+
 function draw() {
   window.requestAnimationFrame(draw);
   let now = Date.now();
@@ -112,40 +169,54 @@ function draw() {
   }
   then = now - (elapsed % fpsInterval);
 
+  player.move();
+  // for (let enemy of enemies) {
+  // enemy.move(player)
+  // }
+
+  if (enemies.length === 0) {
+    nextRoom();
+  }
+
+  let nearestEnemy = closestEnemy(player, enemies);
+  let angle = aim(player, nearestEnemy);
+
+  fire(player, angle);
+  moveBullets(bullets);
+  for (let bullet of bullets) {
+    if (out_of_bounds(bullet)[0]) {
+      bullets = bullets.filter((value) => value !== bullet);
+    }
+  }
+
+  player.dealDamage(spriteCollision(player, nearestEnemy));
+  for (let bullet of bullets) {
+    if (bullet.owner === "Enemy") {
+      player.dealDamage(bulletCollision(player, bullet));
+    } else if (bullet.owner === "Player") {
+      for (let enemy of enemies) {
+        enemy.dealDamage(bulletCollision(enemy, bullet));
+        if (enemy.health === 0) {
+          enemies = enemies.filter((value) => value !== enemy);
+        }
+      }
+    }
+  }
+  if (player.health === 0) {
+    gameOver();
+  }
+
   context.clearRect(0, 0, canvas.width, canvas.height);
 
   drawBackground(background, player);
 
-  let nearestEnemy = closestEnemy(player, enemies);
-  let angle = aim(player.x, player.y, nearestEnemy.x, nearestEnemy.y);
-  let angleDegrees = angle * (180 / Math.PI);
-  // rotate_sprite(player, angle);
   drawSprite(player, angle);
-  second = new Date().getSeconds();
-  if (second !== lastSecond) {
-    fire(player, angle, second);
-  }
 
   for (let enemy of enemies) {
-    let angle = aim(enemy.x, enemy.y, player.x, player.y);
-    // enemy.move(player.x, player.y)
-    // rotate_sprite(enemy, angle);
+    angle = aim(enemy, player);
     drawSprite(enemy, angle);
-    if (second !== lastSecond) {
-      fire(enemy, angle, second);
-    }
   }
-  lastSecond = second;
-
-  // moveBullets(bullets);
-  player.move();
-
-  for (let bullet of bullets) {
-    if (out_of_bounds(bullet)[0]) {
-      let index = bullets.indexOf(bullet);
-      bullets.splice(index, 1);
-    }
-  }
+  drawBullets(bullets);
 }
 
 function keyDown(event) {

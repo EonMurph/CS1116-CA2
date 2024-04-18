@@ -11,6 +11,14 @@ export default class Enemy {
     this.yFrame = 0;
     this.fireRate = Math.round(1800 / fireRate);
     this.damage = damage;
+    this.health = 10;
+    this.invincibilityFrames = 0;
+    this.boundaryBox = {
+      width: 15,
+      height: 30,
+      xOffset: 4,
+      yOffset: 1,
+    };
   }
 
   distance_to_player(player_x, player_y) {
@@ -34,6 +42,16 @@ export default class Enemy {
       } else if (distance.y > 0) {
         this.y -= this.speed;
       }
+    }
+  }
+
+  dealDamage(collision) {
+    if (collision.collides && this.invincibilityFrames === 0) {
+      this.invincibilityFrames = 30;
+      this.health--;
+    }
+    if (this.invincibilityFrames > 0) {
+      this.invincibilityFrames--;
     }
   }
 }

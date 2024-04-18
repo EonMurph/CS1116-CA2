@@ -3,6 +3,7 @@ import { background } from "./background.js";
 
 export default function createPlayer(height, width, speed, image) {
   const player = { name: "Player", height, width, speed, image };
+  player.health = 5;
   const y_boundary = 0.15;
   const x_boundary = 0.15;
   let moveUp = false;
@@ -15,6 +16,12 @@ export default function createPlayer(height, width, speed, image) {
   player.yFrame = 0;
   player.deltaC = 0;
   player.deltaR = 0;
+  player.boundaryBox = {
+    width: 15,
+    height: 30,
+    xOffset: 8,
+    yOffset: 1,
+  };
 
   player.move = () => {
     if (moveUp) {
@@ -94,6 +101,17 @@ export default function createPlayer(height, width, speed, image) {
     }
     if (key === "d") {
       moveRight = false;
+    }
+  };
+
+  let invincibilityFrames = 0;
+  player.dealDamage = (collision) => {
+    if (collision.collides && invincibilityFrames === 0) {
+      invincibilityFrames = 60;
+      player.health--;
+    }
+    if (invincibilityFrames > 0) {
+      invincibilityFrames--;
     }
   };
 
