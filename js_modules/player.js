@@ -4,8 +4,8 @@ import { background } from "./background.js";
 export default function createPlayer(height, width, speed, image) {
   const player = { name: "Player", height, width, speed, image };
   player.health = 5;
-  const y_boundary = 0.15;
-  const x_boundary = 0.15;
+  const y_boundary = 0.1;
+  const x_boundary = 0.05;
   let moveUp = false;
   let moveDown = false;
   let moveLeft = false;
