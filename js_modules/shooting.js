@@ -1,9 +1,9 @@
 import { rotate_sprite } from "./draw_funcs.js";
 import { bullets, context } from "../game.js";
 
-export function aim(character_x, character_y, target_x, target_y) {
-  let xDistance = target_x - character_x;
-  let yDistance = target_y - character_y;
+export function aim(character, target) {
+  let xDistance = target.x - character.x;
+  let yDistance = target.y - character.y;
   return Math.atan2(yDistance, xDistance);
 }
 
