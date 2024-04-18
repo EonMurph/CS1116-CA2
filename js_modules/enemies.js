@@ -1,12 +1,14 @@
-export default class Enemy {
-  constructor(height, width, x, y, speed, image, fireRate, damage) {
+const enemyImage = { var: new Image(), url: "images/sprites/chef.png" };
+export const enemyVariants = [enemyImage];
+export class Enemy {
+  constructor(height, width, x, y, speed, fireRate, damage) {
     this.name = "Enemy";
+    this.image = enemyImage.var;
     this.height = height;
     this.width = width;
     this.x = x;
     this.y = y;
     this.speed = speed;
-    this.image = image;
     this.xFrame = 0;
     this.yFrame = 0;
     this.fireRate = Math.round(1800 / fireRate);

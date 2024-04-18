@@ -92,14 +92,19 @@ function init() {
   window.addEventListener("keydown", keyDown, false);
   window.addEventListener("keyup", keyUp, false);
 
-  let assets = [
-    { var: player.image, url: "images/sprites/chef.png" },
-  ];
-  for (let i = 0; i < enemies.length; i++) {
+
+  let assets = [{ var: player.image, url: "images/sprites/chef.png" }];
+  // for (let i = 0; i < enemies.length; i++) {
+  //   assets.push({
+  //     var: enemies[i].image,
+  //     url: "images/sprites/chef.png",
+  //   });
+  // }
+  for (let variant of enemyVariants) {
     assets.push({
-      var: enemies[i].image,
-      url: "images/sprites/chef.png"
-    })
+      var: variant.var,
+      url: variant.url,
+    });
   }
   for (let i = 0; i < background.tiles.tiles.length; i++) {
     assets.push({
