@@ -14,11 +14,13 @@ import { bulletCollision, spriteCollision } from "./js_modules/collisions.js";
 let enemies = [];
 export let bullets = [];
 
-const player = createPlayer(32, 32, 6, new Image());
+const player = createPlayer(32, 32, 6, new Image(), new Image());
 const playerKeys = ["w", "a", "s", "d"];
 
 export let canvas;
 export let context;
+let scoreDisplay;
+let healthDisplay;
 
 let fpsInterval = 1000 / 30; // the denominator is frames-per-second
 let now;
@@ -26,56 +28,13 @@ let then = Date.now();
 
 let drawRequestId;
 
-// export const background = {
-//   tilesPerRow: 2,
-//   numCols: 20,
-//   numRows: 16,
-//   tileSize: 64,
-//   backgroundImage: new Image(),
-// };
-// prettier-ignore
-// background.map = [
-//   [1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4],
-//   [2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1],
-//   [3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2],
-//   [4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3],
-//   [1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4],
-//   [2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1],
-//   [3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2],
-//   [4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3],
-//   [1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4],
-//   [2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1],
-//   [3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2],
-//   [4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3],
-//   [1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4],
-//   [2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1],
-//   [3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2],
-//   [4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3]
-// ];
-// background.map = [
-//   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-//   [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
-//   [1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 1],
-//   [1, 2, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 2, 1],
-//   [1, 2, 3, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 3, 2, 1],
-//   [1, 2, 3, 4, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 4, 3, 2, 1],
-//   [1, 2, 3, 4, 1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 2, 1, 4, 3, 2, 1],
-//   [1, 2, 3, 4, 1, 2, 3, 4, 4, 4, 4, 4, 4, 3, 2, 1, 4, 3, 2, 1],
-//   [1, 2, 3, 4, 1, 2, 3, 4, 4, 4, 4, 4, 4, 3, 2, 1, 4, 3, 2, 1],
-//   [1, 2, 3, 4, 1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 2, 1, 4, 3, 2, 1],
-//   [1, 2, 3, 4, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 4, 3, 2, 1],
-//   [1, 2, 3, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 3, 2, 1],
-//   [1, 2, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 2, 1],
-//   [1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 1],
-//   [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
-//   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-// ]
-
 document.addEventListener("DOMContentLoaded", init, false);
 
 function init() {
   canvas = document.querySelector("canvas");
   context = canvas.getContext("2d");
+  scoreDisplay = document.querySelector("#score");
+  healthDisplay = document.querySelector("#health")
 
   window.addEventListener("keydown", keyDown, false);
   window.addEventListener("keyup", keyUp, false);
@@ -83,7 +42,10 @@ function init() {
   player.x = Math.floor(canvas.width / 3);
   player.y = Math.floor(canvas.height / 3);
 
-  let assets = [{ var: player.image, url: "images/sprites/chef.png" }];
+  let assets = [
+    { var: player.normalImage, url: "images/sprites/chef.png" },
+    { var: player.hurtImage, url: "images/sprites/hurtChef.png" },
+  ];
   for (let variant of enemyVariants) {
     assets.push({
       var: variant.var,
@@ -99,61 +61,6 @@ function init() {
   load_assets(assets, draw);
 }
 
-// function draw() {
-//   window.requestAnimationFrame(draw);
-//   let now = Date.now();
-//   let elapsed = now - then;
-//   if (elapsed <= fpsInterval) {
-//     return;
-//   }
-//   then = now - (elapsed % fpsInterval);
-
-//   context.clearRect(0, 0, canvas.width, canvas.height);
-
-//   drawBackground(background, player);
-
-//   let nearestEnemy = closestEnemy(player, enemies);
-//   // let [collide, dx, dy] = collides(player, nearestEnemy);
-//   // console.log(dx, dy);
-//   // if (!collide) {
-//   // player.health--;
-//   // console.log(player.health);
-//   // player.move(dx, dy);
-//   // }
-//   player.move();
-//   let collides = spritesCollide(player, nearestEnemy);
-
-//   // spritesCollide(player, nearestEnemy);
-//   let angle = aim(player.x, player.y, nearestEnemy.x, nearestEnemy.y);
-//   // rotate_sprite(player, angle);
-//   drawSprite(player, angle);
-//   // second = new Date().getSeconds();
-//   // if (second !== lastSecond) {
-//   // fire(player, angle, second);
-//   // }
-//   lastSecond = seconds(lastSecond, fire, player, angle);
-
-//   for (let enemy of enemies) {
-//     angle = aim(enemy.x, enemy.y, player.x, player.y);
-//     // enemy.move(player.x, player.y)
-//     // rotate_sprite(enemy, angle);
-//     drawSprite(enemy, angle);
-//     //   if (second !== lastSecond) {
-//     //     fire(enemy, angle, second);
-//     //   }
-//   }
-//   // lastSecond = second;
-
-//   moveBullets(bullets);
-//   // player.move();
-
-//   for (let bullet of bullets) {
-//     if (out_of_bounds(bullet)[0]) {
-//       let index = bullets.indexOf(bullet);
-//       bullets.splice(index, 1);
-//     }
-//   }
-// }
 
 function draw() {
   drawRequestId = window.requestAnimationFrame(draw);
@@ -165,9 +72,9 @@ function draw() {
   then = now - (elapsed % fpsInterval);
 
   player.move();
-  for (let enemy of enemies) {
-    enemy.move(player);
-  }
+  // for (let enemy of enemies) {
+  //   enemy.move(player);
+  // }
 
   if (enemies.length === 0) {
     nextRoom();
@@ -193,6 +100,7 @@ function draw() {
         enemy.dealDamage(bulletCollision(enemy, bullet));
         if (enemy.health === 0) {
           enemies = enemies.filter((value) => value !== enemy);
+          player.score++;
         }
       }
     }
@@ -209,9 +117,13 @@ function draw() {
 
   for (let enemy of enemies) {
     angle = aim(enemy, player);
+    fire(enemy, angle);
     drawSprite(enemy, angle);
   }
   drawBullets(bullets);
+
+  scoreDisplay.innerHTML = player.score;
+  healthDisplay.innerHTML = player.health;
 }
 
 function keyDown(event) {
@@ -259,10 +171,25 @@ function gameOver() {
   window.removeEventListener("keydown", keyDown, false);
   window.removeEventListener("keyup", keyUp, false);
   window.cancelAnimationFrame(drawRequestId);
+
+  let outcomeElement = document.querySelector("#game-over");
+  outcomeElement.innerHTML = "Game Over!";
 }
 
 function nextRoom() {
   //* Enemy(height, width, x, y, speed, bpm, damage)
-  enemies.push(new Enemy(32, 32, 10, 70, 5, 15, 10));
-  console.log("next round");
+  for (let i = 0; i < 5; i++) {
+    enemies.push(
+      new Enemy(24, 16, randint(35, 280), randint(35, 206), 4, 15, 10)
+    );
+  }
+  for (let enemy of enemies) {
+    if (spriteCollision(player, enemy).collides) {
+      enemies = enemies.filter((value) => value !== enemy);
+    }
+  }
+}
+
+function randint(min, max) {
+  return Math.round(Math.random() * (max - min)) + min;
 }

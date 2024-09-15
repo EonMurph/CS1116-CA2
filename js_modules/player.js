@@ -1,17 +1,33 @@
 import { canvas } from "../game.js";
 import { background } from "./background.js";
 
-export default function createPlayer(height, width, speed, image) {
-  const player = { name: "Player", height, width, speed, image };
+export default function createPlayer(
+  height,
+  width,
+  speed,
+  normalImage,
+  hurtImage
+) {
+  const player = {
+    name: "Player",
+    height,
+    width,
+    speed,
+    normalImage,
+    hurtImage,
+  };
+  player.image = player.normalImage;
   player.health = 5;
+  player.score = 0;
   const y_boundary = 0.1;
   const x_boundary = 0.05;
   let moveUp = false;
   let moveDown = false;
   let moveLeft = false;
   let moveRight = false;
-  player.fireRate = 30; // testing purposes, will be later added to specific guns
-  player.framesTilNextShot = 0;
+  player.fireRate = 30;
+  player.framesTilNextShot = 120;
+  player.invincibilityFrames = 60;
   player.xFrame = 0;
   player.yFrame = 0;
   player.deltaC = 0;
@@ -104,16 +120,20 @@ export default function createPlayer(height, width, speed, image) {
     }
   };
 
-  let invincibilityFrames = 0;
   player.dealDamage = (collision) => {
-    if (collision.collides && invincibilityFrames === 0) {
-      invincibilityFrames = 60;
+    if (collision.collides && player.invincibilityFrames === 0) {
+      player.invincibilityFrames = 60;
       player.health--;
+      player.image = player.hurtImage;
     }
-    if (invincibilityFrames > 0) {
-      invincibilityFrames--;
+    if (player.invincibilityFrames > 0) {
+      player.invincibilityFrames--;
+      if (player.invincibilityFrames === 0) {
+        player.image = player.normalImage;
+      }
     }
   };
 
   return player;
 }
+

@@ -33,8 +33,8 @@ export function fire(character, angle) {
     character.framesTilNextShot = character.fireRate;
     let bullet = {
       y: charY + character.boundaryBox.height / 2,
-      speed: 4,
-      radius: 4,
+      speed: 2,
+      radius: 3,
       angle: angle,
       owner: character.name,
       fireRate: character.fireRate,

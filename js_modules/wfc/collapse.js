@@ -39,25 +39,6 @@ export function collapse(grid, tiles) {
   let lowestCellEntropy;
   let possibleChoices = [];
 
-  // if (tiles.DOOR) {
-  //   let rowOrCol = choice(["r", "c"]);
-  //   if (rowOrCol === "r") {
-  //     let rowIndex = choice([0, grid.length - 1 - dimension]);
-  //     let row = grid.slice(rowIndex, rowIndex + dimension);
-  //     possibleChoices.push(choice(row))
-  //     console.log(possibleChoices);
-  //   } else if (rowOrCol === "c") {
-  //   } else {
-  //     console.log("error");
-  //   }
-  //   for (let tileIndex = 0; tileIndex < tiles.tiles.length; tileIndex++) {
-  //     for (let ruleIndex = 0; ruleIndex < tiles.tiles[tileIndex].rules.length; ruleIndex++) {
-  //       let rule = tiles.tiles[tileIndex].rules[ruleIndex];
-  //       tiles.tiles[tileIndex].rules[ruleIndex] = rule.filter(tle => tle !== tiles.DOOR);
-  //     }
-  //   }
-  //   delete tiles.DOOR;
-  // } else {
   for (let cell of grid) {
     if (
       (!lowestCellEntropy || cell.entropy < lowestCellEntropy) &&
@@ -71,7 +52,6 @@ export function collapse(grid, tiles) {
       possibleChoices.push(cell);
     }
   }
-  // }
 
   let cell = choice(possibleChoices);
   let cellIndex = grid.indexOf(cell);
@@ -80,6 +60,8 @@ export function collapse(grid, tiles) {
     chosenTile = tiles.tiles[choice(cell.options)];
   } catch (error) {
     return [grid, false];
+  }
+  if (chosenTile.tile === "blank") {
   }
   cell.tile = chosenTile;
   cell.options = [];

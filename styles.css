@@ -8,8 +8,38 @@ main {
   flex-direction: column;
 
   canvas {
-    background-color: black;
+    background-color: blue;
     width: 720px;
     height: 576px;
   }
+
+  #stats {
+    display: flex;
+    column-gap: 10px;
+  }
+  #game-over {
+    margin-top: 0px;
+  }
+  
+  #instructions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  #credits {
+    color: orange;
+  }
+  
+  >small {
+    font-size: 12px;
+    color: grey;
+  }
+}
+header {
+  display: flex;
+  justify-content: space-around;
+  border-bottom: solid 2px black;
+  padding-bottom: 5px;
 }

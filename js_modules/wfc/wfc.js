@@ -1,5 +1,5 @@
-import { createTiles } from "./tiles.js";
-import { createGrid } from "./grid.js";
+import createTiles from "./tiles.js";
+import createGrid from "./grid.js";
 import { calculateEntropy, collapse } from "./collapse.js";
 import { CRToIndex } from "./adjacent.js";
 
@@ -8,14 +8,14 @@ export function createMap(dimension) {
   let grid;
   let solved = false;
 
-  while (!solved) {
-    grid = createGrid(dimension, tiles);
+  // while (!solved) {
+  grid = createGrid(dimension, tiles);
 
-    for (let i = 0; i < grid.length; i++) {
-      [grid, solved] = collapse(grid, tiles);
-      grid = calculateEntropy(grid, dimension);
-    }
-  };
+  for (let i = 0; i < grid.length; i++) {
+    grid = calculateEntropy(grid, dimension);
+    [grid, solved] = collapse(grid, tiles);
+  }
+  // };
 
   let map = [];
   for (let r = 0; r < dimension; r++) {
@@ -25,13 +25,6 @@ export function createMap(dimension) {
       map[r].push(tiles.tiles.indexOf(tile));
     }
   }
-  // for (let r = 0; r < map.length; r++) {
-  //   for (let c = 0; c < map.length; c++) {
-  //     if (map[r][c] === 5) {
-  //       console.log(map[r][c]);
-  //     }
-  //   }
-  // }
   return [map, tiles];
 }
 
