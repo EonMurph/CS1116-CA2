@@ -25,6 +25,13 @@ export function createMap(dimension) {
       map[r].push(tiles.tiles.indexOf(tile));
     }
   }
+  // for (let r = 0; r < map.length; r++) {
+  //   for (let c = 0; c < map.length; c++) {
+  //     if (map[r][c] === 5) {
+  //       console.log(map[r][c]);
+  //     }
+  //   }
+  // }
   return [map, tiles];
 }
 
